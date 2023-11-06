@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<style>
+    body {
+        background-image: url('https://s.w-x.co/util/image/w/in-virus%20%281%29.jpg?crop=16:9&width=980&format=pjpg&auto=webp&quality=60');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        font-family: Arial, sans-serif;
+        text-align: center;
+        color: white; /* Change text color for readability */
+    }
+
+    h2 {
+        color: #333; /* Change text color for readability */
+    }
+
+    p {
+        color: blue;
+    }
+</style>
+
+<script>
+    function checkCookies() {
+        var rslt = '{{ rslt | tojson | safe }}';
+        var listdeseses = rslt;
+
+        var coolVarParts = listdeseses.split(','); 
+        var foo = document.getElementById("b1");
+
+        for (let i = 0; i < coolVarParts.length; i++) {
+            var element = document.createElement("p");
+            var tmp1 = coolVarParts[i].replace('"','')
+            var tmp = tmp1.replace('[','').replace(']','')
+            element.innerText = tmp;
+            foo.appendChild(element);
+        }
+    }
+</script>
+
+<body id="b1" onload="checkCookies();">
+    <h2>Analysis Results</h2>
+    <p id="p1"></p>
+</body>
+</html>

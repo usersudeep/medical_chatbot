@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Options Title</title>
+    <style>
+        body {
+            background-image: url('https://media.istockphoto.com/id/1300036753/photo/falling-antibiotics-healthcare-background.jpg?s=612x612&w=0&k=20&c=oquxJiLqE33ePw2qML9UtKJgyYUqjkLFwxT84Pr-WPk=');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            background-color: rgb(243, 253, 157);
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        table {
+            background-color: powderblue;
+            width: 50%;
+            margin: 0 auto;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        td {
+            padding: 10px;
+        }
+
+        p {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        input[type="radio"] {
+            margin-right: 5px;
+        }
+
+        input[type="number"] {
+            width: 40px;
+            padding: 5px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="submit"] {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <script>
+        function checkCookies() {
+            var deseses = '{{ deseses | tojson | safe }}';
+            var listdeseses = deseses;
+            var listdeseses1 = listdeseses.replace('[',' ');
+            var listdeseses3 = listdeseses1.replace(']',' ');
+            var coolVarParts = listdeseses3.split(','); 
+            var foo = document.getElementById("p1");
+
+            for (let i = 0; i < coolVarParts.length; i++) {
+                var element = document.createElement("input");
+                element.setAttribute("type", "radio");
+                element.setAttribute("id", i);
+                element.setAttribute("value", coolVarParts[i]);
+                element.setAttribute("name", "op1");
+                if (i === 0) element.setAttribute("checked", "checked");
+                foo.appendChild(element);
+
+                element = document.createElement("label");
+                element.setAttribute("for", i);
+                element.innerText = coolVarParts[i];
+                foo.appendChild(element);
+
+                element = document.createElement("br");
+                foo.appendChild(element);
+            }
+        }
+    </script>
+</head>
+<body onload="checkCookies();">
+    <h1>Detected Diseases List</h1>
+    <form action="http://localhost:5000/symptom" method="POST">
+        <table>
+            <tr>
+                <td><p>Please select the relevant option if you are experiencing any symptoms.</p></td>
+            </tr>
+            <tr>
+                <td><p id="p1"></p></td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="ds1">How many days?</label>
+                    <br>
+                    <input type="number" id="ds1" name="ds1" value="1" min="0" max="10" step="1">
+                </td>
+            </tr>
+            <tr>
+                <td><input type="submit" name="submit_button"></td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>

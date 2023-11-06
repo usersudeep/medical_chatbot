@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Select other symptoms</title>
+    <style>
+        body {
+            background-image: url('https://media.istockphoto.com/id/1300036753/photo/falling-antibiotics-healthcare-background.jpg?s=612x612&w=0&k=20&c=oquxJiLqE33ePw2qML9UtKJgyYUqjkLFwxT84Pr-WPk=');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            background-color: rgb(243, 253, 157);
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 5px;
+        }
+
+        input[type="submit"] {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        table {
+            background-color: powderblue;
+        }
+    </style>
+</head>
+<script>
+    function checkCookies() {
+        var otrsympt = '{{ otrsympt | tojson | safe }}';
+        var listdeseses = otrsympt.replace('[','').replace(']','').split(',');
+        var foo = document.getElementById("p1");
+
+        var heading = document.createElement("h1");
+        heading.innerText = "More Details on Symptoms";
+        foo.appendChild(heading);
+
+        listdeseses.forEach(function(symptom, index) {
+            var element = document.createElement("input");
+            element.setAttribute("type", "checkbox");
+            element.setAttribute("id", index);
+            element.setAttribute("value", symptom);
+            element.setAttribute("name", "cb1");
+            foo.appendChild(element);
+
+            var label = document.createElement("label");
+            label.setAttribute("for", index);
+            label.innerText = symptom;
+            foo.appendChild(label);
+
+            var br = document.createElement("br");
+            foo.appendChild(br);
+        });
+    }
+</script>
+<body onload="checkCookies();">
+    <form action="http://localhost:5000/result" method="POST">
+        <table>
+            <tr>
+                <td><p id="p1"></p></td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="Submit"></td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>
